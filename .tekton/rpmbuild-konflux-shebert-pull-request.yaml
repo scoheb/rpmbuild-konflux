@@ -29,16 +29,16 @@ spec:
     - name: target-branch
       value: "{{ target_branch }}"
     - name: self-ref-url
-      value: "https://github.com/scoheb/rpmbuild-pipeline.git"
+      value: "https://github.com/konflux-ci/rpmbuild-pipeline.git"
     - name: self-ref-revision
-      value: "add-pulp-support"
+      value: "main"
   pipelineRef:
     resolver: git
     params:
       - name: url
-        value: "https://github.com/scoheb/rpmbuild-pipeline.git"
+        value: "https://github.com/konflux-ci/rpmbuild-pipeline.git"
       - name: revision
-        value: add-pulp-support
+        value: main
       - name: pathInRepo
         value: pipeline/build-rpm-package.yaml
   workspaces:
