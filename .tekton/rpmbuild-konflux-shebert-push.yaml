@@ -30,7 +30,7 @@ spec:
     - name: self-ref-url
       value: "https://github.com/scoheb/rpmbuild-pipeline.git"
     - name: self-ref-revision
-      value: "add-pulp-support-rebased"
+      value: "fix-build-platforms"
     - name: specfile
       value: "hello.spec"
     - name: path-context
@@ -41,9 +41,9 @@ spec:
       - name: url
         value: "https://github.com/scoheb/rpmbuild-pipeline.git"
       - name: revision
-        value: add-pulp-support-rebased
+        value: fix-build-platforms
       - name: pathInRepo
-        value: pipeline/rhel-primitives-build-rpm-package.yaml
+        value: pipeline/build-rpm-package.yaml
   taskRunTemplate:
     serviceAccountName: build-pipeline-rpmbuild-konflux
   workspaces:
