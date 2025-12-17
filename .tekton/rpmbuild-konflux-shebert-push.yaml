@@ -33,7 +33,7 @@ spec:
       value: "fix-build-platforms"
     - name: specfile
       value: "hello.spec"
-    - name: path-context
+    - name: monorepo-subdir
       value: "rpms/hello"
   pipelineRef:
     resolver: git
