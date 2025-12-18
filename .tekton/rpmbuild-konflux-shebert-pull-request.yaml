@@ -44,9 +44,64 @@ spec:
       - name: url
         value: "https://github.com/scoheb/rpmbuild-pipeline.git"
       - name: revision
-        value: mock-config-from-source
+        value: fix-build-platforms
       - name: pathInRepo
-        value: pipeline/hummingbird-build-rpm-package.yaml
+        value: pipeline/build-rpm-package.yaml
+  taskRunTemplate:
+    serviceAccountName: build-pipeline-rpmbuild-konflux
+  workspaces:
+    - name: git-auth
+      secret:
+        secretName: '{{ git_auth_secret }}'
+---
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  annotations:
+    build.appstudio.openshift.io/repo: '{{ source_url }}/-/tree/{{ revision }}'
+    build.appstudio.redhat.com/commit_sha: '{{ revision }}'
+    build.appstudio.redhat.com/pull_request_number: '{{ pull_request_number }}'
+    build.appstudio.redhat.com/target_branch: '{{ target_branch }}'
+    pipelinesascode.tekton.dev/max-keep-runs: "3"
+    pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request"
+  creationTimestamp: null
+  labels:
+    appstudio.openshift.io/application: rpmbuild-konflux-shebert-test
+    appstudio.openshift.io/component: rpmbuild-konflux-import-error
+    pipelines.appstudio.openshift.io/type: build
+  name: rpmbuild-konflux-import-error-on-pull-request
+  namespace: shebert-tenant
+spec:
+  params:
+    - name: ociStorage
+      value: quay.io/redhat-user-workloads/shebert-tenant/rpmbuild-konflux-import-error:on-pr-{{ pull_request_number }}-{{revision}}
+    - name: package-name
+      value: hellotilde
+    - name: git-url
+      value: "{{ source_url }}"
+    - name: revision
+      value: "{{ revision }}"
+    - name: target-branch
+      value: "{{ target_branch }}"
+    - name: self-ref-url
+      value: "https://github.com/scoheb/rpmbuild-pipeline.git"
+    - name: self-ref-revision
+      value: "mock-config-from-source"
+    - name: specfile
+      value: "hellotilde.spec"
+    - name: path-context
+      value: "rpms/hellotilde"
+    - name: mock-config-root-path
+      value: "mock-config"
+  pipelineRef:
+    resolver: git
+    params:
+      - name: url
+        value: "https://github.com/scoheb/rpmbuild-pipeline.git"
+      - name: revision
+        value: fix-build-platforms
+      - name: pathInRepo
+        value: pipeline/build-rpm-package.yaml
   taskRunTemplate:
     serviceAccountName: build-pipeline-rpmbuild-konflux
   workspaces:
