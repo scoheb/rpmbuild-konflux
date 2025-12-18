@@ -31,13 +31,14 @@ spec:
     - name: self-ref-url
       value: "https://github.com/scoheb/rpmbuild-pipeline.git"
     - name: self-ref-revision
-      value: "mock-config-from-source"
+      value: "fix-build-platforms"
     - name: specfile
       value: "hello.spec"
-    - name: path-context
+    - name: monorepo-subdir
       value: "rpms/hello"
-    - name: mock-config-root-path
-      value: "mock-config"
+    - name: build-architectures
+      value:
+        - x86_64
   pipelineRef:
     resolver: git
     params:
@@ -86,13 +87,15 @@ spec:
     - name: self-ref-url
       value: "https://github.com/scoheb/rpmbuild-pipeline.git"
     - name: self-ref-revision
-      value: "mock-config-from-source"
+      value: "fix-build-platforms"
     - name: specfile
       value: "hellotilde.spec"
-    - name: path-context
+    - name: monorepo-subdir
       value: "rpms/hellotilde"
-    - name: mock-config-root-path
-      value: "mock-config"
+    - name: build-architectures
+      value:
+        - x86_64
+        - aarch64
   pipelineRef:
     resolver: git
     params:
